@@ -1,0 +1,191 @@
+{
+  "namespaces": [
+    "user"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "roles": {
+          "name": "roles",
+          "type": "user_role_enum[]",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "nativeEnumName": "user_role_enum",
+          "enumItems": [
+            "ADMINISTRATEUR",
+            "PLANIFICATEUR"
+          ],
+          "mappedType": "array"
+        },
+        "is_disabled": {
+          "name": "is_disabled",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
+        "disabled_date": {
+          "name": "disabled_date",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "bigint"
+        },
+        "is_locked": {
+          "name": "is_locked",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
+        "date_lock": {
+          "name": "date_lock",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "bigint"
+        },
+        "login_attempts": {
+          "name": "login_attempts",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        }
+      },
+      "name": "user",
+      "schema": "user",
+      "indexes": [
+        {
+          "columnNames": [
+            "email"
+          ],
+          "composite": false,
+          "keyName": "user_email_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "username"
+          ],
+          "composite": false,
+          "keyName": "user_username_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "user_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR",
+            "PLANIFICATEUR"
+          ]
+        }
+      }
+    }
+  ],
+  "nativeEnums": {
+    "user.user_role_enum": {
+      "name": "user_role_enum",
+      "schema": "user",
+      "items": [
+        "ADMINISTRATEUR",
+        "PLANIFICATEUR"
+      ]
+    }
+  }
+}
