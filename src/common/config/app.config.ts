@@ -4,13 +4,19 @@ import { config } from 'dotenv';
 config();
 
 export const APP_CONFIG = {
+  id: 'magasin',
   name: 'Magasin',
   description: 'Application des gestion de stocks',
   version: '0.0.1',
   apiDocsPrefix: 'api-docs',
+  apiPrefix: 'api',
   port: 8080,
   jwtSecret: 'S3CR3T_K3Y',
   cookieExpirationTime: '1h',
+  environment: 'development',
+  timeout: 10000,
+  debug: false,
+  host: '0.0.0.0',
 };
 
 export const DEV_CONFIG = {
@@ -35,14 +41,14 @@ export interface AppConfig {
 export default registerAs(
   'app',
   (): AppConfig => ({
-    env: process.env.NODE_ENV || 'development',
-    name: process.env.APP_NAME || 'nest-api',
-    globalPrefix: process.env.APP_GLOBAL_PREFIX || 'api/v1',
-    timeout: parseInt(process.env.APP_TIMEOUT) || 7000,
+    env: APP_CONFIG.environment,
+    name: APP_CONFIG.name,
+    globalPrefix: APP_CONFIG.apiPrefix,
+    timeout: APP_CONFIG.timeout,
     http: {
-      host: process.env.HOST_APP || '0.0.0.0',
+      host: APP_CONFIG.host,
       port: APP_CONFIG.port,
     },
-    debug: Boolean(process.env.DEBUG_APP) || false,
+    debug: APP_CONFIG.debug,
   }),
 );
