@@ -1,9 +1,126 @@
 {
   "namespaces": [
-    "user"
+    "user",
+    "public"
   ],
   "name": "public",
   "tables": [
+    {
+      "columns": {
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "type_produit",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "type_produit_pkey",
+          "columnNames": [
+            "nom"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR"
+          ]
+        }
+      }
+    },
+    {
+      "columns": {
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "prix": {
+          "name": "prix",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "stock": {
+          "name": "stock",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "bigint"
+        },
+        "typeProduit": {
+          "name": "typeProduit",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "produit",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "produit_pkey",
+          "columnNames": [
+            "nom"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "produit_typeProduit_foreign": {
+          "constraintName": "produit_typeProduit_foreign",
+          "columnNames": [
+            "typeProduit"
+          ],
+          "localTableName": "public.produit",
+          "referencedColumnNames": [
+            "nom"
+          ],
+          "referencedTableName": "public.type_produit",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR"
+          ]
+        }
+      }
+    },
     {
       "columns": {
         "id": {
@@ -74,8 +191,7 @@
           "nullable": false,
           "nativeEnumName": "user_role_enum",
           "enumItems": [
-            "ADMINISTRATEUR",
-            "PLANIFICATEUR"
+            "ADMINISTRATEUR"
           ],
           "mappedType": "array"
         },
@@ -171,8 +287,7 @@
           "name": "user_role_enum",
           "schema": "user",
           "items": [
-            "ADMINISTRATEUR",
-            "PLANIFICATEUR"
+            "ADMINISTRATEUR"
           ]
         }
       }
@@ -183,8 +298,7 @@
       "name": "user_role_enum",
       "schema": "user",
       "items": [
-        "ADMINISTRATEUR",
-        "PLANIFICATEUR"
+        "ADMINISTRATEUR"
       ]
     }
   }
