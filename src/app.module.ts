@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import configs from 'src/common/config/index';
 import { GenericController } from './common/genericModule/controller/generic.controller';
 import { RefreshTokenMiddleware } from './common/middleware/refresh-token.middleware';
+import { ReferenceModule } from './reference/reference.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { RefreshTokenMiddleware } from './common/middleware/refresh-token.middle
     JwtModule.register(AUTH_CONFIG),
     AuthModule,
     UserModule,
+    ReferenceModule,
     ConfigModule.forRoot({
       load: configs,
       isGlobal: true,

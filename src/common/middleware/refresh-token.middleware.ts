@@ -1,10 +1,11 @@
-import {Injectable, NestMiddleware} from '@nestjs/common'
-import {JwtService} from '@nestjs/jwt'
-import {NextFunction, Request, Response} from 'express'
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { NextFunction, Request, Response } from 'express';
 import {
   extractPayloadFromVerifiedToken,
   extractTokenFromHeader,
-} from '../utils/tokenUtils'
+} from '../utils/tokenUtils';
+import { APP_CONFIG } from '../config/app.config';
 
 @Injectable()
 export class RefreshTokenMiddleware implements NestMiddleware {
@@ -24,24 +25,24 @@ export class RefreshTokenMiddleware implements NestMiddleware {
    */
   use(req: Request, res: Response, next: NextFunction) {
     try {
-      const token = extractTokenFromHeader(req)
-      const {username, roles} = extractPayloadFromVerifiedToken(
+      const token = extractTokenFromHeader(req);
+      const { username, roles } = extractPayloadFromVerifiedToken(
         token,
         this.jwtService,
-      )
+      );
 
       const jwt = this.jwtService.sign(
-        {username: username, roles: roles},
-        {expiresIn: process.env.COOKIE_EXPIRATION_TIME},
-      )
+        { username: username, roles: roles },
+        { expiresIn: APP_CONFIG.cookieExpirationTime },
+      );
       res.cookie('Authorization', encodeURIComponent(jwt), {
         httpOnly: true,
         secure: true,
-      })
-      next()
+      });
+      next();
     } catch {
-      res.clearCookie('Authorization')
-      res.status(401).send('EXPIRED_TOKEN')
+      res.clearCookie('Authorization');
+      res.status(401).send('EXPIRED_TOKEN');
     }
   }
 }
