@@ -32,7 +32,7 @@ const config = {
     allOrNothing: true, // wrap all migrations in master transaction
     dropTables: true, // allow to disable table dropping
     safe: true, // allow to disable table and column dropping
-    emit: 'ts', // migration generation mode
+    emit: 'ts' // migration generation mode
   },
   seeder: {
     path: './src/seeders',
@@ -40,13 +40,13 @@ const config = {
     emit: 'ts', // seeder generation mode
     fileName: (className: string) => className, // seeder file naming convention
     defaultSeeder: 'DatabaseSeeder',
-    glob: '!(*.d).{ts,js}',
+    glob: '!(*.d).{ts,js}'
   },
   entityGenerator: {
     skipTables: ['user'],
     path: './src/entities',
-    save: true,
-  },
+    save: true
+  }
 } as Options;
 
 export default config;

@@ -11,8 +11,8 @@ const classesMap = {
   user: {
     name: User,
     roles: [UserRole.ADMINISTRATEUR],
-    service: UserService,
-  },
+    service: UserService
+  }
 };
 
 /**
@@ -28,7 +28,7 @@ export function getClassInfoFromString(className: string, type: string) {
   } else {
     throw new HttpException(
       `La classe ${className} n'est pas définie dans le mappage.`,
-      HttpStatus.BAD_REQUEST,
+      HttpStatus.BAD_REQUEST
     );
   }
 }
@@ -51,7 +51,7 @@ function loadClasses(): void {
       ) {
         classesMap[key.charAt(0).toLowerCase() + key.slice(1)] = {
           name: value,
-          roles: [],
+          roles: []
         };
       }
     }

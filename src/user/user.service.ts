@@ -4,7 +4,7 @@ import {
   HttpStatus,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
+  UnauthorizedException
 } from '@nestjs/common';
 
 import * as bcrypt from 'bcrypt';
@@ -22,7 +22,7 @@ import { GenericServiceInterface } from '../common/genericModule/service/Generic
 export class UserService implements GenericServiceInterface {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: EntityRepository<User>,
+    private readonly userRepository: EntityRepository<User>
   ) {}
 
   /**
@@ -59,7 +59,7 @@ export class UserService implements GenericServiceInterface {
    */
   async checkUniqueUsername(value: string): Promise<boolean> {
     const [users, count] = await this.userRepository.findAndCount({
-      username: value,
+      username: value
     });
     return count === 1;
   }
@@ -131,7 +131,7 @@ export class UserService implements GenericServiceInterface {
   async update(
     userData: Partial<User>,
     id?: string,
-    idName?: string,
+    idName?: string
   ): Promise<User> {
     return await this.userRepository.upsert(userData);
   }
@@ -160,7 +160,7 @@ export class UserService implements GenericServiceInterface {
   async checkLastRole(partialUser: Partial<User>): Promise<boolean> {
     if (partialUser && partialUser.id) {
       const { roles: roles } = await this.userRepository.findOne({
-        id: partialUser.id,
+        id: partialUser.id
       });
       const rolesPartialUser = Array.from(partialUser.roles.values()).sort();
 
@@ -182,7 +182,7 @@ export class UserService implements GenericServiceInterface {
         const lastRoles: UserRole[] = [];
         for (const role of rolesChange) {
           const users = await this.userRepository.find({
-            roles: { $overlap: [role] },
+            roles: { $overlap: [role] }
           });
           if (users.length <= 1) {
             lastRoles.push(role);
@@ -192,7 +192,7 @@ export class UserService implements GenericServiceInterface {
         if (lastRoles.length > 0) {
           // HTTPEXCEPTION code 509
           throw new ConflictException(
-            `LAST_ROLE_EXCEPTION_${lastRoles.map((value) => value)}`,
+            `LAST_ROLE_EXCEPTION_${lastRoles.map((value) => value)}`
           );
         }
       }

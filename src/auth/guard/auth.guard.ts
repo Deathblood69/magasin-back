@@ -2,14 +2,14 @@ import {
   CanActivate,
   ExecutionContext,
   ForbiddenException,
-  Injectable,
+  Injectable
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { UserRole } from 'src/user/enum/user.role.enum';
 import {
   extractPayloadFromVerifiedToken,
-  extractTokenFromHeader,
+  extractTokenFromHeader
 } from '../../common/utils/tokenUtils';
 import { getClassInfoFromString } from 'src/common/genericModule/genericMappingClass';
 
@@ -17,7 +17,7 @@ import { getClassInfoFromString } from 'src/common/genericModule/genericMappingC
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private reflector: Reflector,
+    private reflector: Reflector
   ) {}
 
   /**
@@ -29,12 +29,12 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     let requiredRoles = this.reflector.getAllAndOverride<UserRole[]>('roles', [
       context.getHandler(),
-      context.getClass(),
+      context.getClass()
     ]);
     if (context.getClass().name === 'GenericController') {
       requiredRoles = getClassInfoFromString(
         context.switchToHttp().getRequest().url.split('/')[2],
-        'roles',
+        'roles'
       );
     }
     if (!requiredRoles || requiredRoles.length === 0) {

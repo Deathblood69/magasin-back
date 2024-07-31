@@ -3,5 +3,5 @@ export const DATABASE_CONFIG = {
   name: 'magasin',
   port: 5432,
   user: 'magasin',
-  password: 'magasin',
+  password: 'magasin'
 };

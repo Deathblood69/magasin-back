@@ -17,6 +17,6 @@ export const users: User[] = [
     disabledDate: 0,
     isLocked: false,
     dateLock: 0,
-    loginAttempts: 3,
-  },
+    loginAttempts: 3
+  }
 ];

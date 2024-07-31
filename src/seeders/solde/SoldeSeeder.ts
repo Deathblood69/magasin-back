@@ -9,8 +9,8 @@ export class SoldeSeeder extends Seeder {
     for (const solde of soldes) {
       const finded = await em.findOne(Client, {
         solde: {
-          id: solde.id,
-        },
+          id: solde.id
+        }
       });
       if (!finded) {
         em.create(Solde, solde);

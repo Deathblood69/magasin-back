@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import {
   Injectable,
   NotAcceptableException,
-  UnauthorizedException,
+  UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
@@ -16,7 +16,7 @@ import { AUTH_CONFIG } from '../common/config/auth.config';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userService: UserService,
+    private readonly userService: UserService
   ) {}
 
   /**
@@ -33,9 +33,9 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload, {
         secret: AUTH_CONFIG.secret,
-        expiresIn: APP_CONFIG.cookieExpirationTime,
+        expiresIn: APP_CONFIG.cookieExpirationTime
       }),
-      roles: nameRoles,
+      roles: nameRoles
     };
   }
 
@@ -46,7 +46,7 @@ export class AuthService {
   decodeToken(token: string): { username: string; roles: string[] } {
     const { username, roles } = extractPayloadFromVerifiedToken(
       token,
-      this.jwtService,
+      this.jwtService
     );
     return { username, roles };
   }
@@ -73,12 +73,12 @@ export class AuthService {
       if (this.isAdmin(user) && user.loginAttempts >= 4) {
         user.isLocked = true;
         user.dateLock = new Date().setMinutes(
-          new Date().getMinutes() + Number(process.env.TIMEBAN),
+          new Date().getMinutes() + Number(process.env.TIMEBAN)
         );
       }
       await this.userService.update(user);
       throw new UnauthorizedException(
-        'INCORRECT_PASSWORD : ' + user.loginAttempts,
+        'INCORRECT_PASSWORD : ' + user.loginAttempts
       );
     }
 
@@ -99,7 +99,7 @@ export class AuthService {
    */
   private async comparePasswords(
     enteredPassword: string,
-    storedPassword: string,
+    storedPassword: string
   ): Promise<boolean> {
     return await bcrypt.compare(enteredPassword, storedPassword);
   }

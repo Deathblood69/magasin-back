@@ -14,7 +14,7 @@ export class ReferenceService {
       return Object.values(this.enumMap.get(refString));
     } else {
       throw new NotAcceptableException(
-        `${refString} n'est pas une référence disponible`,
+        `${refString} n'est pas une référence disponible`
       );
     }
   }

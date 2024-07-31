@@ -3,15 +3,15 @@ import {
   ExecutionContext,
   Injectable,
   Logger,
-  NestInterceptor,
-} from '@nestjs/common'
-import {catchError, map, Observable} from 'rxjs'
-import {JwtService} from '@nestjs/jwt'
+  NestInterceptor
+} from '@nestjs/common';
+import { catchError, map, Observable } from 'rxjs';
+import { JwtService } from '@nestjs/jwt';
 import {
   extractPayloadFromVerifiedToken,
-  extractTokenFromHeader,
-} from '../utils/tokenUtils'
-import {Request} from 'express'
+  extractTokenFromHeader
+} from '../utils/tokenUtils';
+import { Request } from 'express';
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
@@ -24,27 +24,27 @@ export class LoggerInterceptor implements NestInterceptor {
    * @param next
    */
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const req = context.switchToHttp().getRequest()
-    const method = req.method
-    const url = req.url
-    const now = Date.now()
-    const user = this.getUSer(req)
+    const req = context.switchToHttp().getRequest();
+    const method = req.method;
+    const url = req.url;
+    const now = Date.now();
+    const user = this.getUSer(req);
     return next.handle().pipe(
       map((data) => {
         Logger.log(
           `${user} - ${method} - ${context.switchToHttp().getResponse().statusCode} - ${url} -  ${Date.now() - now}ms`,
-          context.getClass().name,
-        )
-        return data
+          context.getClass().name
+        );
+        return data;
       }),
       catchError((err) => {
         Logger.error(
           `${user} - ${method} - ${err} - ${url} -  ${Date.now() - now}ms`,
-          context.getClass().name,
-        )
-        throw err
-      }),
-    )
+          context.getClass().name
+        );
+        throw err;
+      })
+    );
   }
 
   /**
@@ -55,12 +55,15 @@ export class LoggerInterceptor implements NestInterceptor {
    */
   private getUSer(req: Request) {
     try {
-      const token = extractTokenFromHeader(req)
-      const {username} = extractPayloadFromVerifiedToken(token, this.jwtService)
+      const token = extractTokenFromHeader(req);
+      const { username } = extractPayloadFromVerifiedToken(
+        token,
+        this.jwtService
+      );
 
-      return username
+      return username;
     } catch {
-      return req.body.username
+      return req.body.username;
     }
   }
 }

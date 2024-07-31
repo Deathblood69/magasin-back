@@ -7,18 +7,18 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
-} from '@nestjs/common'
+  UseGuards
+} from '@nestjs/common';
 import {
   EntityManager,
   EntityRepository,
   FilterQuery,
-  wrap,
-} from '@mikro-orm/core'
-import {ApiBearerAuth, ApiTags} from '@nestjs/swagger'
-import {AuthGuard} from '../../../auth/guard/auth.guard'
-import {getClassInfoFromString} from '../genericMappingClass'
-import {MessageException} from '../../exception/message.exception'
+  wrap
+} from '@mikro-orm/core';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../../../auth/guard/auth.guard';
+import { getClassInfoFromString } from '../genericMappingClass';
+import { MessageException } from '../../exception/message.exception';
 
 @ApiTags('Entity')
 @ApiBearerAuth()
@@ -30,18 +30,18 @@ export class GenericController {
   @Get(':entity')
   async list(
     @Param('entity') entity: string,
-    @Body() filter: FilterQuery<any>,
+    @Body() filter: FilterQuery<any>
   ) {
-    const service = getClassInfoFromString(entity, 'service')
+    const service = getClassInfoFromString(entity, 'service');
 
     if (service) {
-      const customService = this.getCustomService(entity, service)
-      return customService.list(filter)
+      const customService = this.getCustomService(entity, service);
+      return customService.list(filter);
     }
     try {
-      return await this.em.find(getClassInfoFromString(entity, 'name'), filter)
+      return await this.em.find(getClassInfoFromString(entity, 'name'), filter);
     } catch (e) {
-      MessageException.readMessage(e, entity)
+      MessageException.readMessage(e, entity);
     }
   }
 
@@ -49,43 +49,43 @@ export class GenericController {
   async findOne(
     @Param('entity') entity: string,
     @Param('id') id: string,
-    @Param('idName') idName: string,
+    @Param('idName') idName: string
   ): Promise<any> {
-    const service = getClassInfoFromString(entity, 'service')
+    const service = getClassInfoFromString(entity, 'service');
     if (service) {
-      const customService = this.getCustomService(entity, service)
-      return customService.findOne(idName, id)
+      const customService = this.getCustomService(entity, service);
+      return customService.findOne(idName, id);
     }
     try {
       return this.em.findOneOrFail(getClassInfoFromString(entity, 'name'), {
-        [idName]: id,
-      })
+        [idName]: id
+      });
     } catch (e) {
-      MessageException.readMessage(e, entity)
+      MessageException.readMessage(e, entity);
     }
   }
 
   @Post(':entity')
   async create(
     @Param('entity') entity: string,
-    @Body() dto: any,
+    @Body() dto: any
   ): Promise<any> {
-    const service = getClassInfoFromString(entity, 'service')
+    const service = getClassInfoFromString(entity, 'service');
 
     if (service) {
-      const customService = this.getCustomService(entity, service)
-      return customService.create(dto)
+      const customService = this.getCustomService(entity, service);
+      return customService.create(dto);
     }
     try {
-      return await this.em.insert(getClassInfoFromString(entity, 'name'), dto)
+      return await this.em.insert(getClassInfoFromString(entity, 'name'), dto);
     } catch (e) {
       if (e.name === 'UniqueConstraintViolationException') {
         throw new HttpException(
           `${e?.detail.split('(')[1].split(')')[0]} doit être unique`,
-          409,
-        )
+          409
+        );
       } else {
-        MessageException.readMessage(e, entity)
+        MessageException.readMessage(e, entity);
       }
     }
   }
@@ -94,25 +94,25 @@ export class GenericController {
   async delete(
     @Param('entity') entity: string,
     @Param('id') id: string,
-    @Param('idName') idName: string,
+    @Param('idName') idName: string
   ): Promise<void> {
-    const service = getClassInfoFromString(entity, 'service')
+    const service = getClassInfoFromString(entity, 'service');
     if (service) {
-      const customService = this.getCustomService(entity, service)
-      return customService.delete(id)
+      const customService = this.getCustomService(entity, service);
+      return customService.delete(id);
     }
 
     // @ts-ignore
     const current = await this.em.findOneOrFail(
       getClassInfoFromString(entity, 'name'),
       {
-        [idName]: id,
-      },
-    )
+        [idName]: id
+      }
+    );
     try {
-      await this.em.remove(current).flush()
+      await this.em.remove(current).flush();
     } catch (e) {
-      MessageException.readMessage(e, entity)
+      MessageException.readMessage(e, entity);
     }
   }
 
@@ -121,39 +121,39 @@ export class GenericController {
     @Param('entity') entity: string,
     @Param('id') id: string,
     @Param('idName') idName: string,
-    @Body() dto,
+    @Body() dto
   ): Promise<void> {
-    const service = getClassInfoFromString(entity, 'service')
+    const service = getClassInfoFromString(entity, 'service');
     if (service) {
-      const customService = this.getCustomService(entity, service)
-      return customService.update(dto)
+      const customService = this.getCustomService(entity, service);
+      return customService.update(dto);
     }
     try {
       // @ts-ignore
       const current = await this.em.findOneOrFail(
         getClassInfoFromString(entity, 'name'),
         {
-          [idName]: id,
-        },
-      )
+          [idName]: id
+        }
+      );
 
       // @ts-ignore
       wrap(current).assign({
         ...current,
-        ...dto,
-      })
+        ...dto
+      });
 
-      await this.em.flush()
+      await this.em.flush();
     } catch (e) {
-      MessageException.readMessage(e, entity)
+      MessageException.readMessage(e, entity);
     }
   }
 
   private getCustomService(entity: string, service) {
     const repo = new EntityRepository(
       this.em,
-      getClassInfoFromString(entity, 'name'),
-    )
-    return new service(repo)
+      getClassInfoFromString(entity, 'name')
+    );
+    return new service(repo);
   }
 }

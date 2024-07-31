@@ -16,12 +16,12 @@ export const APP_CONFIG = {
   environment: 'development',
   timeout: 10000,
   debug: false,
-  host: '0.0.0.0',
+  host: '0.0.0.0'
 };
 
 export const DEV_CONFIG = {
   login: 'd.dev',
-  password: 'Azerty!123456',
+  password: 'Azerty!123456'
 };
 
 interface HttpConfig {
@@ -47,8 +47,8 @@ export default registerAs(
     timeout: APP_CONFIG.timeout,
     http: {
       host: APP_CONFIG.host,
-      port: APP_CONFIG.port,
+      port: APP_CONFIG.port
     },
-    debug: APP_CONFIG.debug,
-  }),
+    debug: APP_CONFIG.debug
+  })
 );

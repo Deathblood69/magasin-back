@@ -4,6 +4,6 @@ export const soldes = [
   {
     id: uuidv4(),
     nom: 'solde_r.diasparra',
-    valeur: 0,
-  },
+    valeur: 0
+  }
 ];

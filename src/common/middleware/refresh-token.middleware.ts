@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { NextFunction, Request, Response } from 'express';
 import {
   extractPayloadFromVerifiedToken,
-  extractTokenFromHeader,
+  extractTokenFromHeader
 } from '../utils/tokenUtils';
 import { APP_CONFIG } from '../config/app.config';
 
@@ -28,16 +28,16 @@ export class RefreshTokenMiddleware implements NestMiddleware {
       const token = extractTokenFromHeader(req);
       const { username, roles } = extractPayloadFromVerifiedToken(
         token,
-        this.jwtService,
+        this.jwtService
       );
 
       const jwt = this.jwtService.sign(
         { username: username, roles: roles },
-        { expiresIn: APP_CONFIG.cookieExpirationTime },
+        { expiresIn: APP_CONFIG.cookieExpirationTime }
       );
       res.cookie('Authorization', encodeURIComponent(jwt), {
         httpOnly: true,
-        secure: true,
+        secure: true
       });
       next();
     } catch {

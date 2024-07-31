@@ -7,6 +7,6 @@ export const clients = [
     identifiant: 'r.diasparra',
     nom: 'DIASPARRA',
     prenom: 'Romain',
-    solde: soldes[0],
-  },
+    solde: soldes[0]
+  }
 ];

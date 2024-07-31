@@ -23,9 +23,9 @@ export function extractTokenFromHeader(request: Request): string | undefined {
  */
 export function extractPayloadFromVerifiedToken(
   token: string,
-  jwtService: JwtService,
+  jwtService: JwtService
 ): { username: string; roles: string[] } {
   return jwtService.verify(token, {
-    secret: AUTH_CONFIG.secret,
+    secret: AUTH_CONFIG.secret
   }) as { username: string; roles: string[] };
 }

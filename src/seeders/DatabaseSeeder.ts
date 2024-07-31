@@ -24,7 +24,7 @@ export class DatabaseSeeder extends Seeder {
       TypeProduitSeeder,
       ProduitSeeder,
       ClientSeeder,
-      SoldeSeeder,
+      SoldeSeeder
     ]);
   }
 }

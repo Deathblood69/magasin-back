@@ -12,7 +12,7 @@ export class ClientSeeder extends Seeder {
         client.solde = {
           id: finded.id,
           nom: finded.nom,
-          valeur: finded.valeur,
+          valeur: finded.valeur
         };
       } else {
         const persited = em.create(Solde, client.solde);

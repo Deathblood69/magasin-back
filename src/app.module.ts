@@ -20,13 +20,13 @@ import { ReferenceModule } from './reference/reference.module';
     ReferenceModule,
     ConfigModule.forRoot({
       load: configs,
-      isGlobal: true,
+      isGlobal: true
     }),
-    MikroOrmModule.forRoot(),
+    MikroOrmModule.forRoot()
   ],
   controllers: [GenericController],
   providers: [],
-  exports: [JwtModule],
+  exports: [JwtModule]
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

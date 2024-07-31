@@ -3,7 +3,7 @@ import {
   OneToOne,
   PrimaryKey,
   PrimaryKeyProp,
-  Property,
+  Property
 } from '@mikro-orm/core';
 import { Client } from './Client';
 import { AbstractEntity } from '../common/abstract/entity.abstract';
