@@ -1,10 +1,4 @@
-import {
-  Entity,
-  ManyToOne,
-  PrimaryKey,
-  PrimaryKeyProp,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, ManyToOne, PrimaryKeyProp, Property } from '@mikro-orm/core';
 import { TypeProduit } from './TypeProduit';
 import { AbstractEntity } from '../common/abstract/entity.abstract';
 
@@ -18,7 +12,7 @@ export class Produit extends AbstractEntity {
   @Property({ columnType: 'int' })
   prix!: number;
 
-  @Property({ columnType: 'bigint' })
+  @Property({ columnType: 'int' })
   stock!: number;
 
   @ManyToOne({ entity: () => TypeProduit, fieldName: 'typeProduit' })
