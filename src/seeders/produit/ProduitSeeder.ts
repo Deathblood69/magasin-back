@@ -6,24 +6,20 @@ import { TypeProduit } from '../../entities/TypeProduit';
 
 export class ProduitSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
-    for (const e of [Produit, TypeProduit]) {
-      const entitiesInBdd = await em.findAll(e);
-      if (entitiesInBdd.length > 0) await em.removeAndFlush(entitiesInBdd);
-    }
-
     for (const produit of produits) {
-      let typeProduit = await em.findOne(TypeProduit, {
-        nom: produit.typeProduit.nom,
+      const finded = await em.findOne(TypeProduit, {
+        id: produit.typeProduit.id,
       });
-      if (!typeProduit) {
-        typeProduit = em.create(TypeProduit, produit.typeProduit);
-        await em.persistAndFlush(typeProduit);
+      if (finded) {
+        produit.typeProduit = {
+          id: finded.id,
+          nom: finded.nom,
+        };
+      } else {
+        const persited = em.create(TypeProduit, produit.typeProduit);
+        await em.persistAndFlush(persited);
       }
-      const newProduit = em.create(Produit, {
-        ...produit,
-        typeProduit: typeProduit,
-      });
-      await em.persistAndFlush(newProduit);
+      em.create(Produit, produit);
     }
   }
 }

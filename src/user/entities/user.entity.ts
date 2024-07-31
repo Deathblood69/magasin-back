@@ -1,10 +1,4 @@
-import {
-  Entity,
-  Enum,
-  PrimaryKey,
-  PrimaryKeyProp,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, Enum, PrimaryKeyProp, Property } from '@mikro-orm/core';
 import { UserRole } from '../enum/user.role.enum';
 import { AbstractEntity } from '../../common/abstract/entity.abstract';
 

@@ -2,10 +2,11 @@ import { UserRole } from '../../user/enum/user.role.enum';
 import { User } from '../../user/entities/user.entity';
 import { DEV_CONFIG } from '../../common/config/app.config';
 import { faker } from '@faker-js/faker';
+import { v4 as uuidv4 } from 'uuid';
 
 export const users: User[] = [
   {
-    id: faker.string.uuid(),
+    id: uuidv4(),
     lastName: faker.person.lastName().toUpperCase(),
     firstName: faker.person.firstName(),
     username: DEV_CONFIG.login,

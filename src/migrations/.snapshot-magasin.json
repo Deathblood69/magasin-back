@@ -7,6 +7,15 @@
   "tables": [
     {
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
         "nom": {
           "name": "nom",
           "type": "text",
@@ -15,15 +24,24 @@
           "primary": false,
           "nullable": false,
           "mappedType": "text"
+        },
+        "valeur": {
+          "name": "valeur",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
         }
       },
-      "name": "type_produit",
+      "name": "solde",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "type_produit_pkey",
+          "keyName": "solde_pkey",
           "columnNames": [
-            "nom"
+            "id"
           ],
           "composite": false,
           "constraint": true,
@@ -45,6 +63,159 @@
     },
     {
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "identifiant": {
+          "name": "identifiant",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "prenom": {
+          "name": "prenom",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "solde_id": {
+          "name": "solde_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "client",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "solde_id"
+          ],
+          "composite": false,
+          "keyName": "client_solde_id_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "client_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "client_solde_id_foreign": {
+          "constraintName": "client_solde_id_foreign",
+          "columnNames": [
+            "solde_id"
+          ],
+          "localTableName": "public.client",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.solde",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR"
+          ]
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "type_produit",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "type_produit_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR"
+          ]
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
         "nom": {
           "name": "nom",
           "type": "text",
@@ -74,12 +245,12 @@
         },
         "typeProduit": {
           "name": "typeProduit",
-          "type": "text",
+          "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "text"
+          "mappedType": "uuid"
         }
       },
       "name": "produit",
@@ -88,7 +259,7 @@
         {
           "keyName": "produit_pkey",
           "columnNames": [
-            "nom"
+            "id"
           ],
           "composite": false,
           "constraint": true,
@@ -105,7 +276,7 @@
           ],
           "localTableName": "public.produit",
           "referencedColumnNames": [
-            "nom"
+            "id"
           ],
           "referencedTableName": "public.type_produit",
           "updateRule": "cascade"

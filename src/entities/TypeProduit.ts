@@ -1,9 +1,10 @@
-import { Entity, PrimaryKey, PrimaryKeyProp } from '@mikro-orm/core';
+import { Entity, PrimaryKey, PrimaryKeyProp, Property } from '@mikro-orm/core';
+import { AbstractEntity } from '../common/abstract/entity.abstract';
 
 @Entity()
-export class TypeProduit {
-  [PrimaryKeyProp]?: 'nom';
+export class TypeProduit extends AbstractEntity {
+  [PrimaryKeyProp]?: 'id';
 
-  @PrimaryKey({ columnType: 'text' })
+  @Property({ columnType: 'text' })
   nom!: string;
 }
