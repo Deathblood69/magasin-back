@@ -15,5 +15,12 @@ export const produits = [
     prix: 2,
     stock: 0,
     typeProduit: typeProduits[1]
+  },
+  {
+    id: uuidv4(),
+    nom: 'Ice Tea',
+    prix: 2,
+    stock: 0,
+    typeProduit: typeProduits[0]
   }
 ];

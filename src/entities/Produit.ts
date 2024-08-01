@@ -6,15 +6,19 @@ import { AbstractEntity } from '../common/abstract/entity.abstract';
 export class Produit extends AbstractEntity {
   [PrimaryKeyProp]?: 'id';
 
-  @Property({ columnType: 'text' })
+  @Property({ columnType: 'text', nullable: false, unique: true })
   nom!: string;
 
-  @Property({ columnType: 'int' })
+  @Property({ columnType: 'int', default: 0 })
   prix!: number;
 
-  @Property({ columnType: 'int' })
+  @Property({ columnType: 'int', default: 0 })
   stock!: number;
 
-  @ManyToOne({ entity: () => TypeProduit, fieldName: 'typeProduit' })
+  @ManyToOne({
+    entity: () => TypeProduit,
+    fieldName: 'typeProduit',
+    nullable: false
+  })
   typeProduit!: TypeProduit;
 }

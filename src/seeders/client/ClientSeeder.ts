@@ -11,7 +11,6 @@ export class ClientSeeder extends Seeder {
       if (finded) {
         client.solde = {
           id: finded.id,
-          nom: finded.nom,
           valeur: finded.valeur
         };
       } else {

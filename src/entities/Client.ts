@@ -1,10 +1,4 @@
-import {
-  Entity,
-  OneToOne,
-  PrimaryKey,
-  PrimaryKeyProp,
-  Property
-} from '@mikro-orm/core';
+import { Entity, OneToOne, PrimaryKeyProp, Property } from '@mikro-orm/core';
 import { Solde } from './Solde';
 import { AbstractEntity } from '../common/abstract/entity.abstract';
 
@@ -12,13 +6,13 @@ import { AbstractEntity } from '../common/abstract/entity.abstract';
 export class Client extends AbstractEntity {
   [PrimaryKeyProp]?: 'id';
 
-  @Property({ columnType: 'text' })
+  @Property({ columnType: 'text', nullable: false, unique: true })
   identifiant!: string;
 
-  @Property({ columnType: 'text' })
+  @Property({ columnType: 'text', nullable: false })
   nom!: string;
 
-  @Property({ columnType: 'text' })
+  @Property({ columnType: 'text', nullable: false })
   prenom!: string;
 
   @OneToOne(() => Solde, (solde) => solde.client, { owner: true })

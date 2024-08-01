@@ -1,17 +1,20 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20240730181322 extends Migration {
+export class Migration20240801055955 extends Migration {
   async up(): Promise<void> {
     this.addSql('create schema if not exists "user";');
     this.addSql(
       'create type "user"."user_role_enum" as enum (\'ADMINISTRATEUR\');'
     );
     this.addSql(
-      'create table "solde" ("id" uuid not null, "nom" text not null, "valeur" int not null, constraint "solde_pkey" primary key ("id"));'
+      'create table "solde" ("id" uuid not null, "valeur" int not null default 0, constraint "solde_pkey" primary key ("id"));'
     );
 
     this.addSql(
       'create table "client" ("id" uuid not null, "identifiant" text not null, "nom" text not null, "prenom" text not null, "solde_id" uuid not null, constraint "client_pkey" primary key ("id"));'
+    );
+    this.addSql(
+      'alter table "client" add constraint "client_identifiant_unique" unique ("identifiant");'
     );
     this.addSql(
       'alter table "client" add constraint "client_solde_id_unique" unique ("solde_id");'
@@ -20,9 +23,15 @@ export class Migration20240730181322 extends Migration {
     this.addSql(
       'create table "type_produit" ("id" uuid not null, "nom" text not null, constraint "type_produit_pkey" primary key ("id"));'
     );
+    this.addSql(
+      'alter table "type_produit" add constraint "type_produit_nom_unique" unique ("nom");'
+    );
 
     this.addSql(
-      'create table "produit" ("id" uuid not null, "nom" text not null, "prix" int not null, "stock" int not null, "typeProduit" uuid not null, constraint "produit_pkey" primary key ("id"));'
+      'create table "produit" ("id" uuid not null, "nom" text not null, "prix" int not null default 0, "stock" int not null default 0, "typeProduit" uuid not null, constraint "produit_pkey" primary key ("id"));'
+    );
+    this.addSql(
+      'alter table "produit" add constraint "produit_nom_unique" unique ("nom");'
     );
 
     this.addSql(

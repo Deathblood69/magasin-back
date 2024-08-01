@@ -1,5 +1,8 @@
 {
-  "namespaces": ["user", "public"],
+  "namespaces": [
+    "user",
+    "public"
+  ],
   "name": "public",
   "tables": [
     {
@@ -13,15 +16,6 @@
           "nullable": false,
           "mappedType": "uuid"
         },
-        "nom": {
-          "name": "nom",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
         "valeur": {
           "name": "valeur",
           "type": "int",
@@ -29,6 +23,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "default": "0",
           "mappedType": "integer"
         }
       },
@@ -37,7 +32,9 @@
       "indexes": [
         {
           "keyName": "solde_pkey",
-          "columnNames": ["id"],
+          "columnNames": [
+            "id"
+          ],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -50,7 +47,9 @@
         "user.user_role_enum": {
           "name": "user_role_enum",
           "schema": "user",
-          "items": ["ADMINISTRATEUR"]
+          "items": [
+            "ADMINISTRATEUR"
+          ]
         }
       }
     },
@@ -106,7 +105,19 @@
       "schema": "public",
       "indexes": [
         {
-          "columnNames": ["solde_id"],
+          "columnNames": [
+            "identifiant"
+          ],
+          "composite": false,
+          "keyName": "client_identifiant_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "solde_id"
+          ],
           "composite": false,
           "keyName": "client_solde_id_unique",
           "constraint": true,
@@ -115,7 +126,9 @@
         },
         {
           "keyName": "client_pkey",
-          "columnNames": ["id"],
+          "columnNames": [
+            "id"
+          ],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -126,9 +139,13 @@
       "foreignKeys": {
         "client_solde_id_foreign": {
           "constraintName": "client_solde_id_foreign",
-          "columnNames": ["solde_id"],
+          "columnNames": [
+            "solde_id"
+          ],
           "localTableName": "public.client",
-          "referencedColumnNames": ["id"],
+          "referencedColumnNames": [
+            "id"
+          ],
           "referencedTableName": "public.solde",
           "updateRule": "cascade"
         }
@@ -137,7 +154,9 @@
         "user.user_role_enum": {
           "name": "user_role_enum",
           "schema": "user",
-          "items": ["ADMINISTRATEUR"]
+          "items": [
+            "ADMINISTRATEUR"
+          ]
         }
       }
     },
@@ -166,8 +185,20 @@
       "schema": "public",
       "indexes": [
         {
+          "columnNames": [
+            "nom"
+          ],
+          "composite": false,
+          "keyName": "type_produit_nom_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "type_produit_pkey",
-          "columnNames": ["id"],
+          "columnNames": [
+            "id"
+          ],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -180,7 +211,9 @@
         "user.user_role_enum": {
           "name": "user_role_enum",
           "schema": "user",
-          "items": ["ADMINISTRATEUR"]
+          "items": [
+            "ADMINISTRATEUR"
+          ]
         }
       }
     },
@@ -211,16 +244,18 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "default": "0",
           "mappedType": "integer"
         },
         "stock": {
           "name": "stock",
-          "type": "bigint",
+          "type": "int",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "bigint"
+          "default": "0",
+          "mappedType": "integer"
         },
         "typeProduit": {
           "name": "typeProduit",
@@ -236,8 +271,20 @@
       "schema": "public",
       "indexes": [
         {
+          "columnNames": [
+            "nom"
+          ],
+          "composite": false,
+          "keyName": "produit_nom_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "produit_pkey",
-          "columnNames": ["id"],
+          "columnNames": [
+            "id"
+          ],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -248,9 +295,13 @@
       "foreignKeys": {
         "produit_typeProduit_foreign": {
           "constraintName": "produit_typeProduit_foreign",
-          "columnNames": ["typeProduit"],
+          "columnNames": [
+            "typeProduit"
+          ],
           "localTableName": "public.produit",
-          "referencedColumnNames": ["id"],
+          "referencedColumnNames": [
+            "id"
+          ],
           "referencedTableName": "public.type_produit",
           "updateRule": "cascade"
         }
@@ -259,7 +310,9 @@
         "user.user_role_enum": {
           "name": "user_role_enum",
           "schema": "user",
-          "items": ["ADMINISTRATEUR"]
+          "items": [
+            "ADMINISTRATEUR"
+          ]
         }
       }
     },
@@ -332,7 +385,9 @@
           "primary": false,
           "nullable": false,
           "nativeEnumName": "user_role_enum",
-          "enumItems": ["ADMINISTRATEUR"],
+          "enumItems": [
+            "ADMINISTRATEUR"
+          ],
           "mappedType": "array"
         },
         "is_disabled": {
@@ -390,7 +445,9 @@
       "schema": "user",
       "indexes": [
         {
-          "columnNames": ["email"],
+          "columnNames": [
+            "email"
+          ],
           "composite": false,
           "keyName": "user_email_unique",
           "constraint": true,
@@ -398,7 +455,9 @@
           "unique": true
         },
         {
-          "columnNames": ["username"],
+          "columnNames": [
+            "username"
+          ],
           "composite": false,
           "keyName": "user_username_unique",
           "constraint": true,
@@ -407,7 +466,9 @@
         },
         {
           "keyName": "user_pkey",
-          "columnNames": ["id"],
+          "columnNames": [
+            "id"
+          ],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -420,7 +481,9 @@
         "user.user_role_enum": {
           "name": "user_role_enum",
           "schema": "user",
-          "items": ["ADMINISTRATEUR"]
+          "items": [
+            "ADMINISTRATEUR"
+          ]
         }
       }
     }
@@ -429,7 +492,9 @@
     "user.user_role_enum": {
       "name": "user_role_enum",
       "schema": "user",
-      "items": ["ADMINISTRATEUR"]
+      "items": [
+        "ADMINISTRATEUR"
+      ]
     }
   }
 }
