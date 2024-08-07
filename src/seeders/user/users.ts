@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 export const users: User[] = [
   {
     id: uuidv4(),
-    lastName: faker.person.lastName().toUpperCase(),
-    firstName: faker.person.firstName(),
+    lastName: 'COMPTE',
+    firstName: 'Administrateur',
     username: DEV_CONFIG.login,
     password: DEV_CONFIG.password,
     email: faker.internet.email().toLowerCase(),
