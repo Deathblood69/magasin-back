@@ -10,6 +10,7 @@ import configs from 'src/common/config/index';
 import { GenericController } from './common/genericModule/controller/generic.controller';
 import { RefreshTokenMiddleware } from './common/middleware/refresh-token.middleware';
 import { ReferenceModule } from './reference/reference.module';
+import { PanierModule } from './panier/panier.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { ReferenceModule } from './reference/reference.module';
       load: configs,
       isGlobal: true
     }),
-    MikroOrmModule.forRoot()
+    MikroOrmModule.forRoot(),
+    PanierModule
   ],
   controllers: [GenericController],
   providers: [],
