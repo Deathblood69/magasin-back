@@ -1,17 +1,12 @@
 import { UserRole } from '../../user/enum/user.role.enum';
-import { User } from '../../user/entities/user.entity';
 import { DEV_CONFIG } from '../../common/config/app.config';
-import { faker } from '@faker-js/faker';
-import { v4 as uuidv4 } from 'uuid';
 
-export const users: User[] = [
+export const users = [
   {
-    id: uuidv4(),
     lastName: 'COMPTE',
     firstName: 'Administrateur',
     username: DEV_CONFIG.login,
     password: DEV_CONFIG.password,
-    email: faker.internet.email().toLowerCase(),
     roles: [UserRole.ADMINISTRATEUR],
     disabled: false,
     disabledDate: 0,

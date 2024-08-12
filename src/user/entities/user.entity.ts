@@ -1,19 +1,14 @@
-import { Entity, Enum, PrimaryKeyProp, Property } from '@mikro-orm/core';
+import { Entity, Enum, Property } from '@mikro-orm/core';
 import { UserRole } from '../enum/user.role.enum';
 import { AbstractEntity } from '../../common/abstract/entity.abstract';
 
 @Entity({ tableName: 'user', schema: 'user' })
 export class User extends AbstractEntity {
-  [PrimaryKeyProp]?: 'id';
-
   @Property({ name: 'last_name' })
   lastName: string;
 
   @Property({ name: 'first_name' })
   firstName: string;
-
-  @Property({ name: 'email', unique: true })
-  email: string;
 
   @Property({ name: 'username', unique: true })
   username: string;

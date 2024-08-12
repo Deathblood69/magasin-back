@@ -9,7 +9,7 @@ export class TypeProduitSeeder extends Seeder {
     for (const typeProduit of typeProduits) {
       const finded = await em.findOne(Produit, {
         typeProduit: {
-          id: typeProduit.id
+          nom: typeProduit.nom
         }
       });
       if (!finded) {

@@ -1,7 +1,6 @@
-import { PrimaryKey, SerializedPrimaryKey } from '@mikro-orm/core';
+import { PrimaryKey } from '@mikro-orm/core';
 
 export class AbstractEntity {
-  @PrimaryKey({ columnType: 'uuid' })
-  @SerializedPrimaryKey()
-  id: string;
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string;
 }

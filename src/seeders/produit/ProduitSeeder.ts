@@ -8,18 +8,16 @@ export class ProduitSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
     for (const produit of produits) {
       const finded = await em.findOne(TypeProduit, {
-        id: produit.typeProduit.id
+        nom: produit.typeProduit.nom
       });
       if (finded) {
-        produit.typeProduit = {
-          id: finded.id,
-          nom: finded.nom
-        };
+        produit.typeProduit = finded;
       } else {
         const persited = em.create(TypeProduit, produit.typeProduit);
         await em.persistAndFlush(persited);
       }
-      em.create(Produit, produit);
+      const persited = em.create(Produit, produit);
+      await em.persistAndFlush(persited);
     }
   }
 }
