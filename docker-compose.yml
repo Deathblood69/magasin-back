@@ -1,0 +1,24 @@
+# docker-compose du back
+services:
+  postgres:
+    image: magasin-database
+    container_name: magasin-back-postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - magasin-network
+
+  nest:
+    image: magasin-back
+    container_name: magasin-back-nest
+    ports:
+      - "8080:8080"
+    networks:
+      - magasin-network
+    depends_on:
+      - postgres
+
+networks:
+  magasin-network:
+    driver: bridge
+
