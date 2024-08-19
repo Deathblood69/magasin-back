@@ -22,14 +22,14 @@ async function bootstrap() {
           level: 'error',
           format: format.combine(format.timestamp(), format.json()),
           datePattern: 'YYYY-MM-DD',
-          zippedArchive: false, // don't want to zip our logs
+          zippedArchive: false // don't want to zip our logs
         }),
         // same for all levels
         new transports.DailyRotateFile({
           filename: `logs/%DATE%-combined.log`,
           format: format.combine(format.timestamp(), format.json()),
           datePattern: 'YYYY-MM-DD',
-          zippedArchive: false,
+          zippedArchive: false
         }),
         new transports.Console({
           format: format.combine(
@@ -38,11 +38,11 @@ async function bootstrap() {
             format.timestamp(),
             format.printf((info) => {
               return `${info.timestamp} ${info.level}: ${info.message}`;
-            }),
-          ),
-        }),
-      ],
-    }),
+            })
+          )
+        })
+      ]
+    })
   };
   const app = await NestFactory.create(AppModule, logger);
   app.enableCors();
@@ -53,12 +53,12 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      whitelist: true,
-    }),
+      whitelist: true
+    })
   );
 
   const document = SwaggerModule.createDocument(app, SWAGGER_CONFIG);
-  SwaggerModule.setup(APP_CONFIG.apiDocsPrefix, app, document);
+  SwaggerModule.setup(APP_CONFIG.app.apiDocsPrefix, app, document);
 
   app.setGlobalPrefix(appConfig.globalPrefix);
   const server = await app.listen(appConfig.http.port, appConfig.http.host);

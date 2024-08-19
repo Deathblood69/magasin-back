@@ -7,41 +7,41 @@ Application backend de gestion d'un magasin
 Installation des dépendances
 
 ```bash
-$ npm install
+npm install
 ```
 
 Création de l'image de la base de données
 
 ```bash
-$ docker build -f database.dockerfile -t magasin-database .
+docker build -f database.dockerfile -t magasin-database
 ```
 
 Mise à jour des tables de la base de données
 ```bash
-$ npm run migration:run
+npm run migration:run
 ```
 
 Ajout des données
 ```bash
-$ npm seeders:generate
+npm seeders:generate
 ```
 
 Création de l'image du backend
 
 ```bash
-$ docker build -t magasin-back .
+docker build -t magasin-back .
 ```
 
 ## Running the app
 
 ```bash
-$ docker start magasin-database
+docker start magasin-database
 ```
 
 
 
 ```bash
-$ npm run start:dev
+npm run start:dev
 ```
 
 ## Déploiement
@@ -49,5 +49,5 @@ $ npm run start:dev
 Déploiement du backend et de la base de données
 
 ```bash
-$ docker-compose up -d
+docker compose up -d
 ```

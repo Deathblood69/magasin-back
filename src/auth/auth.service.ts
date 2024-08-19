@@ -73,7 +73,7 @@ export class AuthService {
       if (this.isAdmin(user) && user.loginAttempts >= 4) {
         user.isLocked = true;
         user.dateLock = new Date().setMinutes(
-          new Date().getMinutes() + Number(process.env.TIMEBAN)
+          new Date().getMinutes() + Number(APP_CONFIG.timeban)
         );
       }
       await this.userService.update(user);
