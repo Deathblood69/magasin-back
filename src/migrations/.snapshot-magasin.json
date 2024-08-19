@@ -235,6 +235,79 @@
     },
     {
       "columns": {
+        "produit": {
+          "name": "produit",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "date": {
+          "name": "date",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "quantite": {
+          "name": "quantite",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        }
+      },
+      "name": "statistique",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "statistique_pkey",
+          "columnNames": [
+            "produit",
+            "date"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "statistique_produit_foreign": {
+          "constraintName": "statistique_produit_foreign",
+          "columnNames": [
+            "produit"
+          ],
+          "localTableName": "public.statistique",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.produit",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR",
+            "UTILISATEUR"
+          ]
+        }
+      }
+    },
+    {
+      "columns": {
         "id": {
           "name": "id",
           "type": "uuid",

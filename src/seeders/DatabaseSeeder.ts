@@ -8,10 +8,12 @@ import { TypeProduit } from '../entities/TypeProduit';
 import { Client } from '../entities/Client';
 import { Produit } from '../entities/Produit';
 import { User } from '../user/entities/user.entity';
+import { Statistique } from '../entities/Statistique';
+import { StatistiqueSeeder } from './statistique/StatistiqueSeeder';
 
 export class DatabaseSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
-    const entities = [Client, Produit, TypeProduit, User];
+    const entities = [Client, Statistique, Produit, TypeProduit, User];
     for (const e of entities) {
       const entitiesInBdd = await em.findAll(e);
       if (entitiesInBdd.length > 0) await em.removeAndFlush(entitiesInBdd);
@@ -21,7 +23,8 @@ export class DatabaseSeeder extends Seeder {
       UserSeeder,
       TypeProduitSeeder,
       ProduitSeeder,
-      ClientSeeder
+      ClientSeeder,
+      StatistiqueSeeder
     ]);
   }
 }

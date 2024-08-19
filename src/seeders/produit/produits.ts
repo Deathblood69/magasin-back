@@ -1,5 +1,4 @@
 import { typeProduits } from '../typeProduit/typeProduits';
-import { v4 as uuidv4 } from 'uuid';
 
 export const produits = [
   {
@@ -15,7 +14,6 @@ export const produits = [
     typeProduit: typeProduits[1]
   },
   {
-    id: uuidv4(),
     nom: 'Ice Tea',
     prix: 2,
     stock: 0,
