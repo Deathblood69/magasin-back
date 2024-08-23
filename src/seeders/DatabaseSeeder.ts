@@ -11,7 +11,7 @@ import { User } from '../user/entities/user.entity';
 
 export class DatabaseSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
-    const entities = [Client, Statistique, Produit, TypeProduit, User];
+    const entities = [Client, Produit, TypeProduit, User];
     for (const e of entities) {
       const entitiesInBdd = await em.findAll(e);
       if (entitiesInBdd.length > 0) await em.removeAndFlush(entitiesInBdd);
