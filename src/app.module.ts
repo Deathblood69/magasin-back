@@ -11,6 +11,7 @@ import { GenericController } from './common/genericModule/controller/generic.con
 import { RefreshTokenMiddleware } from './common/middleware/refresh-token.middleware';
 import { ReferenceModule } from './reference/reference.module';
 import { PanierModule } from './panier/panier.module';
+import { BeneficeModule } from './benefice/benefice.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { PanierModule } from './panier/panier.module';
       isGlobal: true
     }),
     MikroOrmModule.forRoot(),
-    PanierModule
+    PanierModule,
+    BeneficeModule
   ],
   controllers: [GenericController],
   providers: [],
