@@ -26,8 +26,10 @@ export class BeneficeService {
       course: courseId
     });
 
+    const totalDepense = achats.reduce((a, b) => a - b.prix * b.stock, 0);
+
     return {
-      benefice: 0,
+      benefice: totalDepense,
       course: courseId,
       achats: achats
     };

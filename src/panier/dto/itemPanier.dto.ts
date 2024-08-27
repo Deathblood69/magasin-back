@@ -1,6 +1,6 @@
-import { Produit } from '../../entities/Produit';
+import { Catalogue } from '../../catalogue/entities/catalogue.entity';
 
 export class ItemPanierDto {
   quantite: number;
-  produit: Produit;
+  catalogue: Catalogue;
 }

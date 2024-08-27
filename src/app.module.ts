@@ -12,6 +12,7 @@ import { RefreshTokenMiddleware } from './common/middleware/refresh-token.middle
 import { ReferenceModule } from './reference/reference.module';
 import { PanierModule } from './panier/panier.module';
 import { BeneficeModule } from './benefice/benefice.module';
+import { CatalogueModule } from './catalogue/catalogue.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { BeneficeModule } from './benefice/benefice.module';
     }),
     MikroOrmModule.forRoot(),
     PanierModule,
-    BeneficeModule
+    BeneficeModule,
+    CatalogueModule
   ],
   controllers: [GenericController],
   providers: [],

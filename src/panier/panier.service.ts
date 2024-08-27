@@ -3,21 +3,14 @@ import { Client } from '../entities/Client';
 import { ItemPanierDto } from './dto/itemPanier.dto';
 import { EntityManager } from '@mikro-orm/core';
 import { Produit } from '../entities/Produit';
+import { Vente } from '../entities/Vente';
 
 @Injectable()
 export class PanierService {
   constructor(private readonly entityManager: EntityManager) {}
 
   async valider(clientId: string, items: ItemPanierDto[]) {
-    const total = items
-      .map((item) => item.produit.prix * item.quantite)
-      .reduce((a, b) => a + b, 0);
-
-    await this.updateClientSolde(clientId, total);
-
-    for (const item of items) {
-      await this.updateProduitStock(item);
-    }
+    console.log(clientId);
   }
 
   async updateClientSolde(clientId: string, total: number) {
@@ -41,7 +34,15 @@ export class PanierService {
     const produit = await this.entityManager.findOne(Produit, {
       id: item.produit.id
     });
-    produit.stock -= item.quantite;
-    await this.entityManager.persistAndFlush(produit);
+
+    const vente = this.entityManager.create(Vente, {
+      produit,
+      date: new Date(),
+      prix: item.achat.prix,
+      stock: item.quantite,
+      achat: item.achat
+    });
+
+    await this.entityManager.persistAndFlush(vente);
   }
 }

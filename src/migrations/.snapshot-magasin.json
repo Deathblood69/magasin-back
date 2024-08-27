@@ -558,6 +558,174 @@
           ]
         }
       }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "gen_random_uuid()",
+          "mappedType": "uuid"
+        },
+        "produit": {
+          "name": "produit",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "date"
+        },
+        "prix": {
+          "name": "prix",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "stock": {
+          "name": "stock",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        }
+      },
+      "name": "vente",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "vente_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "vente_produit_foreign": {
+          "constraintName": "vente_produit_foreign",
+          "columnNames": [
+            "produit"
+          ],
+          "localTableName": "public.vente",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.produit",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR",
+            "UTILISATEUR"
+          ]
+        }
+      }
+    },
+    {
+      "columns": {
+        "vente_id": {
+          "name": "vente_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "achat_id": {
+          "name": "achat_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "vente_achat",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "vente_achat_pkey",
+          "columnNames": [
+            "vente_id",
+            "achat_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "vente_achat_vente_id_foreign": {
+          "constraintName": "vente_achat_vente_id_foreign",
+          "columnNames": [
+            "vente_id"
+          ],
+          "localTableName": "public.vente_achat",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.vente",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "vente_achat_achat_id_foreign": {
+          "constraintName": "vente_achat_achat_id_foreign",
+          "columnNames": [
+            "achat_id"
+          ],
+          "localTableName": "public.vente_achat",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.achat",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {
+        "user.user_role_enum": {
+          "name": "user_role_enum",
+          "schema": "user",
+          "items": [
+            "ADMINISTRATEUR",
+            "UTILISATEUR"
+          ]
+        }
+      }
     }
   ],
   "nativeEnums": {
