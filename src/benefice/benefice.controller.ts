@@ -23,7 +23,7 @@ export class BeneficeController {
     description: 'Les bénéfices des courses sont invalides'
   })
   async calculerAllBenefices() {
-    return await this.beneficeService.calculerAllBenefice();
+    return await this.beneficeService.calculerBeneficeAllCourse();
   }
 
   @Get(':courseId')
@@ -33,6 +33,6 @@ export class BeneficeController {
     description: 'Les bénéfices sont invalides'
   })
   async calculerBenefice(@Param('courseId') courseId: string) {
-    return await this.beneficeService.calculerBenefice(courseId);
+    return await this.beneficeService.calculerBeneficeCourse(courseId);
   }
 }

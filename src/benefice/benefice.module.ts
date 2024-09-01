@@ -5,9 +5,10 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { BeneficeController } from './benefice.controller';
 import { Course } from '../entities/Course';
 import { Achat } from '../entities/Achat';
+import { Vente } from '../entities/Vente';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Course, Achat])],
+  imports: [MikroOrmModule.forFeature([Course, Achat, Vente])],
   controllers: [BeneficeController],
   providers: [BeneficeService, JwtService]
 })
