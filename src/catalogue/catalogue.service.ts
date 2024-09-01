@@ -4,6 +4,7 @@ import { EntityManager, EntityRepository } from '@mikro-orm/core';
 import { Achat } from '../entities/Achat';
 import { Catalogue } from './entities/catalogue.entity';
 import { Produit } from '../entities/Produit';
+import { Vente } from '../entities/Vente';
 
 @Injectable()
 export class CatalogueService {
@@ -15,15 +16,22 @@ export class CatalogueService {
 
   async recupererCatalogue() {
     const achats = await this.achatRepository.findAll();
-    const promises = achats.map(async (e) => {
+
+    const promises = achats.map(async (achat) => {
       const produit = await this.entityManager.findOne(Produit, {
-        id: e.produit.id
+        id: achat.produit.id
       });
+      const ventes = await this.entityManager.find(Vente, {
+        achat: achat
+      });
+      const stockVentes = ventes.reduce((previousValue, currentValue) => {
+        return previousValue + currentValue.stock;
+      }, 0);
       return {
-        achat: e.id,
+        achat: achat.id,
         nom: produit.nom,
-        stock: e.stock,
-        prix: e.prix
+        stock: achat.stock - stockVentes,
+        prix: achat.prix
       } satisfies Catalogue;
     });
     return Promise.all(promises);
