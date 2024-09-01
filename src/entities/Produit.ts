@@ -13,4 +13,7 @@ export class Produit extends AbstractEntity {
     nullable: false
   })
   typeProduit!: TypeProduit;
+
+  @Property({ columnType: 'int', nullable: false, unique: true })
+  prix!: number;
 }

@@ -1,20 +1,35 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Client } from '../entities/Client';
 import { ItemPanierDto } from './dto/itemPanier.dto';
 import { EntityManager } from '@mikro-orm/core';
-import { Produit } from '../entities/Produit';
 import { Vente } from '../entities/Vente';
+import { Achat } from '../entities/Achat';
+import { Client } from '../entities/Client';
 
 @Injectable()
 export class PanierService {
-  constructor(private readonly entityManager: EntityManager) {}
+  constructor(private readonly em: EntityManager) {}
 
   async valider(clientId: string, items: ItemPanierDto[]) {
-    console.log(clientId);
+    let total = 0;
+    for (const item of items) {
+      const achat = await this.em.findOne(Achat, {
+        id: item.catalogue.achat
+      });
+      const vente = this.em.create(Vente, {
+        produit: achat.produit,
+        achat: achat,
+        stock: item.stock,
+        prix: item.prix,
+        date: new Date()
+      });
+      await this.em.persistAndFlush(vente);
+      total += item.prix * item.stock;
+    }
+    await this.updateClientSolde(clientId, total);
   }
 
   async updateClientSolde(clientId: string, total: number) {
-    const getClient = await this.entityManager.findOne(Client, {
+    const getClient = await this.em.findOne(Client, {
       id: clientId
     });
 
@@ -27,22 +42,6 @@ export class PanierService {
     }
 
     getClient.solde -= total;
-    await this.entityManager.persistAndFlush(getClient);
-  }
-
-  async updateProduitStock(item: ItemPanierDto) {
-    const produit = await this.entityManager.findOne(Produit, {
-      id: item.produit.id
-    });
-
-    const vente = this.entityManager.create(Vente, {
-      produit,
-      date: new Date(),
-      prix: item.achat.prix,
-      stock: item.quantite,
-      achat: item.achat
-    });
-
-    await this.entityManager.persistAndFlush(vente);
+    await this.em.persistAndFlush(getClient);
   }
 }
